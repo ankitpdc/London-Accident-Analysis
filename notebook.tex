@@ -1,0 +1,2369 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ClassifierPrototype\_UKTraffic}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Contents}\label{contents}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Dependencies
+\item
+  Data Import
+\item
+  High Level Insights
+\item
+  Feature Enginnering
+\item
+  Exploratory Data Analysis  A) Correlation Analysis  B) Time Series
+  Analysis  C) Analysis of Accident\_Severity, Number\_of\_Vehicles,
+  Number\_of\_Casualties vs
+  Did\_Police\_Officer\_Attend\_Scene\_of\_Accident  D) Analysis
+  Light\_Conditions, Weather\_Conditions vs
+  Did\_Police\_Officer\_Attend\_Scene\_of\_Accident  E) Ananlysis
+  Police\_Force, Local\_Authority\_(District) vs
+  Did\_Police\_Officer\_Attend\_Scene\_of\_Accident
+\item
+  Selecting features and target variables  A) Features Selection through
+  EDA  B) Automated features Selection
+\item
+  Building Models  A) Decision Trees  B) Random Forest  C) GaussianNB
+   D) Logistic Regression  E) Linear SVC  F) XGBoost  G) Stochastic
+  Gradient Descent(Hyper Parameter Tuning)
+\item
+  Conclusion \& Things to do further
+\end{enumerate}
+
+    \subsection{1) Dependencies}\label{dependencies}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k+kn}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k+kn}{import} \PY{n}{datetime}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.tree} \PY{k+kn}{import} \PY{n}{DecisionTreeClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.naive\PYZus{}bayes} \PY{k+kn}{import} \PY{n}{GaussianNB}
+        \PY{k+kn}{from} \PY{n+nn}{xgboost} \PY{k+kn}{import} \PY{n}{XGBClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.ensemble} \PY{k+kn}{import} \PY{n}{RandomForestRegressor}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.linear\PYZus{}model} \PY{k+kn}{import} \PY{n}{LogisticRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.svm} \PY{k+kn}{import} \PY{n}{SVC}\PY{p}{,} \PY{n}{LinearSVC}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.ensemble} \PY{k+kn}{import} \PY{n}{RandomForestClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.linear\PYZus{}model} \PY{k+kn}{import} \PY{n}{Perceptron}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.linear\PYZus{}model} \PY{k+kn}{import} \PY{n}{SGDClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.metrics} \PY{k+kn}{import} \PY{n}{classification\PYZus{}report}\PY{p}{,} \PY{n}{confusion\PYZus{}matrix}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}
+\end{Verbatim}
+
+
+    \subsection{2) Data Import}\label{data-import}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DfTRoadSafety\PYZus{}Accidents\PYZus{}2014.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{3) High Level Insights}\label{high-level-insights}
+
+    \paragraph{View top 5 Values for each
+attribute.}\label{view-top-5-values-for-each-attribute.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}                                                          0              1  \textbackslash{}
+        Accident\_Index                               201401BS70001  201401BS70002   
+        Location\_Easting\_OSGR                               524600         525780   
+        Location\_Northing\_OSGR                              179020         178290   
+        Longitude                                        -0.206443      -0.189713   
+        Latitude                                           51.4963        51.4895   
+        Police\_Force                                             1              1   
+        Accident\_Severity                                        3              3   
+        Number\_of\_Vehicles                                       2              2   
+        Number\_of\_Casualties                                     1              1   
+        Date                                            09/01/2014     20/01/2014   
+        Day\_of\_Week                                              5              2   
+        Time                                                 13:21          23:00   
+        Local\_Authority\_(District)                              12             12   
+        Local\_Authority\_(Highway)                        E09000020      E09000020   
+        1st\_Road\_Class                                           3              3   
+        1st\_Road\_Number                                        315           3218   
+        Road\_Type                                                6              6   
+        Speed\_limit                                             30             30   
+        Junction\_Detail                                          0              5   
+        Junction\_Control                                        -1              4   
+        2nd\_Road\_Class                                          -1              3   
+        2nd\_Road\_Number                                          0           3220   
+        Pedestrian\_Crossing-Human\_Control                        0              0   
+        Pedestrian\_Crossing-Physical\_Facilities                  0              5   
+        Light\_Conditions                                         1              7   
+        Weather\_Conditions                                       2              1   
+        Road\_Surface\_Conditions                                  2              1   
+        Special\_Conditions\_at\_Site                               0              0   
+        Carriageway\_Hazards                                      0              0   
+        Urban\_or\_Rural\_Area                                      1              1   
+        Did\_Police\_Officer\_Attend\_Scene\_of\_Accident              2              2   
+        LSOA\_of\_Accident\_Location                        E01002814      E01002894   
+        
+                                                                 2              3  \textbackslash{}
+        Accident\_Index                               201401BS70003  201401BS70004   
+        Location\_Easting\_OSGR                               526880         525580   
+        Location\_Northing\_OSGR                              178430         179080   
+        Longitude                                        -0.173827      -0.192311   
+        Latitude                                           51.4905        51.4967   
+        Police\_Force                                             1              1   
+        Accident\_Severity                                        3              3   
+        Number\_of\_Vehicles                                       2              1   
+        Number\_of\_Casualties                                     1              1   
+        Date                                            21/01/2014     15/01/2014   
+        Day\_of\_Week                                              3              4   
+        Time                                                 10:40          17:45   
+        Local\_Authority\_(District)                              12             12   
+        Local\_Authority\_(Highway)                        E09000020      E09000020   
+        1st\_Road\_Class                                           3              5   
+        1st\_Road\_Number                                        308              0   
+        Road\_Type                                                6              6   
+        Speed\_limit                                             30             30   
+        Junction\_Detail                                          3              3   
+        Junction\_Control                                         4              4   
+        2nd\_Road\_Class                                           6              6   
+        2nd\_Road\_Number                                          0              0   
+        Pedestrian\_Crossing-Human\_Control                        0              0   
+        Pedestrian\_Crossing-Physical\_Facilities                  0              1   
+        Light\_Conditions                                         1              4   
+        Weather\_Conditions                                       1              1   
+        Road\_Surface\_Conditions                                  1              1   
+        Special\_Conditions\_at\_Site                               0              0   
+        Carriageway\_Hazards                                      0              0   
+        Urban\_or\_Rural\_Area                                      1              1   
+        Did\_Police\_Officer\_Attend\_Scene\_of\_Accident              1              2   
+        LSOA\_of\_Accident\_Location                        E01002822      E01002812   
+        
+                                                                 4  
+        Accident\_Index                               201401BS70006  
+        Location\_Easting\_OSGR                               527040  
+        Location\_Northing\_OSGR                              179030  
+        Longitude                                        -0.171308  
+        Latitude                                           51.4959  
+        Police\_Force                                             1  
+        Accident\_Severity                                        3  
+        Number\_of\_Vehicles                                       2  
+        Number\_of\_Casualties                                     1  
+        Date                                            09/01/2014  
+        Day\_of\_Week                                              5  
+        Time                                                 08:50  
+        Local\_Authority\_(District)                              12  
+        Local\_Authority\_(Highway)                        E09000020  
+        1st\_Road\_Class                                           3  
+        1st\_Road\_Number                                          4  
+        Road\_Type                                                6  
+        Speed\_limit                                             30  
+        Junction\_Detail                                          7  
+        Junction\_Control                                         4  
+        2nd\_Road\_Class                                           3  
+        2nd\_Road\_Number                                          4  
+        Pedestrian\_Crossing-Human\_Control                        0  
+        Pedestrian\_Crossing-Physical\_Facilities                  8  
+        Light\_Conditions                                         1  
+        Weather\_Conditions                                       1  
+        Road\_Surface\_Conditions                                  1  
+        Special\_Conditions\_at\_Site                               0  
+        Carriageway\_Hazards                                      0  
+        Urban\_or\_Rural\_Area                                      1  
+        Did\_Police\_Officer\_Attend\_Scene\_of\_Accident              1  
+        LSOA\_of\_Accident\_Location                        E01002821  
+\end{Verbatim}
+            
+    \paragraph{Get column name, not null values count, and datatype of each
+attribute}\label{get-column-name-not-null-values-count-and-datatype-of-each-attribute}
+
+It can be observed that \texttt{LSOA\_of\_Accident\_Location} contains
+null values
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 146322 entries, 0 to 146321
+Data columns (total 32 columns):
+Accident\_Index                                 146322 non-null object
+Location\_Easting\_OSGR                          146322 non-null int64
+Location\_Northing\_OSGR                         146322 non-null int64
+Longitude                                      146322 non-null float64
+Latitude                                       146322 non-null float64
+Police\_Force                                   146322 non-null int64
+Accident\_Severity                              146322 non-null int64
+Number\_of\_Vehicles                             146322 non-null int64
+Number\_of\_Casualties                           146322 non-null int64
+Date                                           146322 non-null object
+Day\_of\_Week                                    146322 non-null int64
+Time                                           146322 non-null object
+Local\_Authority\_(District)                     146322 non-null int64
+Local\_Authority\_(Highway)                      146322 non-null object
+1st\_Road\_Class                                 146322 non-null int64
+1st\_Road\_Number                                146322 non-null int64
+Road\_Type                                      146322 non-null int64
+Speed\_limit                                    146322 non-null int64
+Junction\_Detail                                146322 non-null int64
+Junction\_Control                               146322 non-null int64
+2nd\_Road\_Class                                 146322 non-null int64
+2nd\_Road\_Number                                146322 non-null int64
+Pedestrian\_Crossing-Human\_Control              146322 non-null int64
+Pedestrian\_Crossing-Physical\_Facilities        146322 non-null int64
+Light\_Conditions                               146322 non-null int64
+Weather\_Conditions                             146322 non-null int64
+Road\_Surface\_Conditions                        146322 non-null int64
+Special\_Conditions\_at\_Site                     146322 non-null int64
+Carriageway\_Hazards                            146322 non-null int64
+Urban\_or\_Rural\_Area                            146322 non-null int64
+Did\_Police\_Officer\_Attend\_Scene\_of\_Accident    146322 non-null int64
+LSOA\_of\_Accident\_Location                      137045 non-null object
+dtypes: float64(2), int64(25), object(5)
+memory usage: 35.7+ MB
+
+    \end{Verbatim}
+
+    \paragraph{Get no of unique vales for each
+attribute}\label{get-no-of-unique-vales-for-each-attribute}
+
+\paragraph{Observations and
+Inference:}\label{observations-and-inference}
+
+\texttt{Location\_Easting\_OSGR}, \texttt{Location\_Northing\_OSGR},
+\texttt{Longitude}, \texttt{Latitude} have high variability so we will
+exclude these variables from our analysis
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} Accident\_Index                                 146322
+        Location\_Easting\_OSGR                           92575
+        Location\_Northing\_OSGR                          96296
+        Longitude                                      138878
+        Latitude                                       137376
+        Police\_Force                                       51
+        Accident\_Severity                                   3
+        Number\_of\_Vehicles                                 14
+        Number\_of\_Casualties                               26
+        Date                                              365
+        Day\_of\_Week                                         7
+        Time                                             1439
+        Local\_Authority\_(District)                        380
+        Local\_Authority\_(Highway)                         207
+        1st\_Road\_Class                                      6
+        1st\_Road\_Number                                  4384
+        Road\_Type                                           6
+        Speed\_limit                                         6
+        Junction\_Detail                                     9
+        Junction\_Control                                    5
+        2nd\_Road\_Class                                      7
+        2nd\_Road\_Number                                  3869
+        Pedestrian\_Crossing-Human\_Control                   3
+        Pedestrian\_Crossing-Physical\_Facilities             6
+        Light\_Conditions                                    5
+        Weather\_Conditions                                  9
+        Road\_Surface\_Conditions                             6
+        Special\_Conditions\_at\_Site                          9
+        Carriageway\_Hazards                                 7
+        Urban\_or\_Rural\_Area                                 2
+        Did\_Police\_Officer\_Attend\_Scene\_of\_Accident         2
+        LSOA\_of\_Accident\_Location                       29122
+        dtype: int64
+\end{Verbatim}
+            
+    \paragraph{Target variable
+distribution}\label{target-variable-distribution}
+
+We can observe that
+\texttt{Did\_Police\_Officer\_Attend\_Scene\_of\_Accident} data is
+skewed from this analysis
+
+\paragraph{Inference}\label{inference}
+
+We have skewed distribution of data. Frequency of appearance of one of
+the category of target variable is high and therefore algorithms will
+have to trained accordingly. If this is not done then ML algos will be
+inefficient in predicting for other category.
+
+\paragraph{To solve this problem will have to try adding more weightage
+to accidents with class
+2}\label{to-solve-this-problem-will-have-to-try-adding-more-weightage-to-accidents-with-class-2}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Did\PYZus{}Police\PYZus{}Officer\PYZus{}Attend\PYZus{}Scene\PYZus{}of\PYZus{}Accident}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} 1    119607
+        2     26715
+        Name: Did\_Police\_Officer\_Attend\_Scene\_of\_Accident, dtype: int64
+\end{Verbatim}
+            
+    \paragraph{Get columns list based on
+datatypes}\label{get-columns-list-based-on-datatypes}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{numerics} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int16}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float16}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{int\PYZus{}columns} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+        \PY{n}{float\PYZus{}columns} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+        \PY{n}{object\PYZus{}columns} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{object}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+    \subsection{4) Feature Engineering}\label{feature-engineering}
+
+    \paragraph{Format Date in Datetime format and add additional columns for
+month, day, and
+hour}\label{format-date-in-datetime-format-and-add-additional-columns-for-month-day-and-hour}
+
+Our dataset is very clean and hence as such no cleaning is required. We
+have balanced dataset. No missing values as such. Dataset has
+categorical variables and numerical variables properly populated. Only
+one thing that needs to be done is extracting one feature from time
+field, number of accidents at different hours in a day.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{to\PYZus{}hour}\PY{p}{(}\PY{n}{time}\PY{p}{)}\PY{p}{:}
+            \PY{k}{try}\PY{p}{:}
+                \PY{n}{hour} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{strptime}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{time}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb}{int}\PY{p}{(}\PY{n}{datetime}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{n}{hour}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{k}{except} \PY{n+ne}{Exception}\PY{p}{:}
+                \PY{k}{return} \PY{l+m+mi}{0}
+        
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m/}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{month}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{day}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hour\PYZus{}of\PYZus{}Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{to\PYZus{}hour}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{isWeekend}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m/}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}  \PY{l+m+mf}{1.0} \PY{k}{if} \PY{n}{x}\PY{o}{.}\PY{n}{weekday}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{5} \PY{k}{else} \PY{l+m+mf}{0.0}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \subsection{5) Exploratory Data
+Analysis}\label{exploratory-data-analysis}
+
+    \subsubsection{A) Correlation Analysis}\label{a-correlation-analysis}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Correlation Matrix1(Graphical)
+\item
+  Correlation Matrix2(Numerical) \#\#\#\# Observations:
+\item
+  \texttt{Locating\_Easting\_OSGR} and \texttt{Longitude} are correlated
+  as expected
+\item
+  \texttt{Locating\_Northing\_OSGR' and 'Latitude} are correlated as
+  expected
+\item
+  \texttt{Police\_Force} and \texttt{Local\_Authority\_(District)} are
+  correlated
+\item
+  \texttt{Speed\_limit} and \texttt{Urban\_or\_Rural\_Area} are
+  correlated as expected
+\item
+  \texttt{Junction\_Detail}, \texttt{Junction\_Control} and
+  \texttt{2nd\_Road\_Class} are correlated \#\#\#\# Inference: From
+  above analysis we can drop of highly correlated features.
+\end{enumerate}
+
+    \paragraph{1) Correlation
+Matrix1(Graphical)}\label{correlation-matrix1graphical}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{corrmat} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+        \PY{n}{f}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{corrmat}\PY{p}{,} \PY{n}{vmax}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{square}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{2) Correlation
+Matrix2(Numerical)}\label{correlation-matrix2numerical}
+
+\paragraph{Obsevations:}\label{obsevations}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \texttt{Junction Control} and \texttt{2nd\_Road\_Class} are correlated
+  ( 0.93 in matrix below) \#\#\#\# Inference:
+\item
+  As both above features are highly correlated will drop
+  \texttt{Junction Control} from our analysis
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{15} \PY{c+c1}{\PYZsh{}number of random variables for heatmap}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+         \PY{n}{cols} \PY{o}{=} \PY{n}{corrmat}\PY{o}{.}\PY{n}{nlargest}\PY{p}{(}\PY{n}{k}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Did\PYZus{}Police\PYZus{}Officer\PYZus{}Attend\PYZus{}Scene\PYZus{}of\PYZus{}Accident}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Did\PYZus{}Police\PYZus{}Officer\PYZus{}Attend\PYZus{}Scene\PYZus{}of\PYZus{}Accident}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{index}
+         \PY{n}{cm} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{font\PYZus{}scale}\PY{o}{=}\PY{l+m+mf}{1.25}\PY{p}{)}
+         \PY{n}{hm} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{cbar}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{square}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{fmt}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.2f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{annot\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{yticklabels}\PY{o}{=}\PY{n}{cols}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{xticklabels}\PY{o}{=}\PY{n}{cols}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{B) Time Series Analysis}\label{b-time-series-analysis}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Average number of casualties over hour of day and splitted by day of
+  week
+\item
+  Monthly accidents distribution
+\item
+  "Accident Count" vs "Day\_of\_Week" splitted by
+  "Did\_Police\_Officer\_Attend\_Scene\_of\_Accident"
+\item
+  "Accident Count" vs "Hour of Day" splitted by
+  "Did\_Police\_Officer\_Attend\_Scene\_of\_Accident"
+\end{enumerate}
+
+    \paragraph{1) Average number of casualties over hour of day and splitted
+by day of
+week}\label{average-number-of-casualties-over-hour-of-day-and-splitted-by-day-of-week}
+
+\paragraph{Observations:}\label{observations}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Number of casualties is different for weekends and weekdays \#\#\#\#
+  Inference:
+\item
+  This analysis doesnt give much information about the target variable.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average number of casualties  over hour of day and splitted by  day of week }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hour of Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Casualities}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{darkgrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hour\PYZus{}of\PYZus{}Day}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number\PYZus{}of\PYZus{}Casualties}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Day\PYZus{}of\PYZus{}Week}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{estimator}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{52}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f923aa006d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{2) Monthly accidents
+distribution}\label{monthly-accidents-distribution}
+
+\paragraph{Observations:}\label{observations}
+
+1)The maximum number of accidents happened in the month of October
+followed by November. \#\#\#\# Inference: 1) This analysis doesnt give
+much information about the target variable.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of accidents per month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accident count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{x} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Month}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{order} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{3) "Accident Count" vs "Day\_of\_Week" splitted by
+"Did\_Police\_Officer\_Attend\_Scene\_of\_Accident"}\label{accident-count-vs-dayux5fofux5fweek-splitted-by-didux5fpoliceux5fofficerux5fattendux5fsceneux5fofux5faccident}
+
+\paragraph{Observations:}\label{observations}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  No of accidents is maximum on \texttt{Friday} and minimum on
+  \texttt{Monday} \#\#\#\# Inference:
+\item
+  Clearly we can create a variable which distinguish weekends vs weekday
+  :: "isWeekend"
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Number of Accidents Attended by Police Hourly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day\PYZus{}of\PYZus{}Week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accident Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Day\PYZus{}of\PYZus{}Week}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Did\PYZus{}Police\PYZus{}Officer\PYZus{}Attend\PYZus{}Scene\PYZus{}of\PYZus{}Accident}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{estimator} \PY{o}{=} \PY{k}{lambda} \PY{n}{z}\PY{p}{:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f923bab15d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{4) "Accident Count" vs "Hour of Day" splitted by
+"Did\_Police\_Officer\_Attend\_Scene\_of\_Accident"}\label{accident-count-vs-hour-of-day-splitted-by-didux5fpoliceux5fofficerux5fattendux5fsceneux5fofux5faccident}
+
+\paragraph{Observations:}\label{observations}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  No of accidents is maximum at \texttt{5PM} followed by \texttt{8AM}
+  \#\#\#\# Inference:
+\item
+  Here we can clearly infer that number of accidents varries based on
+  hour in a day so we should use this feature for model training ::
+  "Hour\_of\_Day"
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Number of Accidents Attended by Police Hourly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hour of Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accident Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hour\PYZus{}of\PYZus{}Day}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Did\PYZus{}Police\PYZus{}Officer\PYZus{}Attend\PYZus{}Scene\PYZus{}of\PYZus{}Accident}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{estimator} \PY{o}{=} \PY{k}{lambda} \PY{n}{z}\PY{p}{:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f923ae62150>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{C) Analysis of Accident\_Severity, Number\_of\_Vehicles,
+Number\_of\_Casualties vs
+Did\_Police\_Officer\_Attend\_Scene\_of\_Accident}\label{c-analysis-of-accidentux5fseverity-numberux5fofux5fvehicles-numberux5fofux5fcasualties-vs-didux5fpoliceux5fofficerux5fattendux5fsceneux5fofux5faccident}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Accident\_Severity vs
+  Did\_Police\_Officer\_Attend\_Scene\_of\_Accident
+\item
+  Number\_of\_Vehicles vs
+  Did\_Police\_Officer\_Attend\_Scene\_of\_Accident
+\item
+  Number\_of\_Casualties vs
+  Did\_Police\_Officer\_Attend\_Scene\_of\_Accident
+\end{enumerate}
+
+    \paragraph{1) Accident\_Severity vs
+Did\_Police\_Officer\_Attend\_Scene\_of\_Accident}\label{accidentux5fseverity-vs-didux5fpoliceux5fofficerux5fattendux5fsceneux5fofux5faccident}
+
+\paragraph{Observations:}\label{observations}
+
+1)Most of the accidents are of low severity
+
+\paragraph{Inference:}\label{inference}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Here we can infer that accident severity is contributing to target
+  variable so we should include \texttt{Accident\_Severity} for model
+  training
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Number of Accidents Attended by Police based on Accident Severity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accident Severity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accident Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accident\PYZus{}Severity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Did\PYZus{}Police\PYZus{}Officer\PYZus{}Attend\PYZus{}Scene\PYZus{}of\PYZus{}Accident}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{estimator} \PY{o}{=} \PY{k}{lambda} \PY{n}{z}\PY{p}{:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f9237ee0350>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{2) Number\_of\_Vehicles vs
+Did\_Police\_Officer\_Attend\_Scene\_of\_Accident}\label{numberux5fofux5fvehicles-vs-didux5fpoliceux5fofficerux5fattendux5fsceneux5fofux5faccident}
+
+\paragraph{Observations:}\label{observations}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Number of vehices involved in most of the cases were 2 follwed by 3
+  \#\#\#\# Inference:
+\item
+  Here we can infer that number of vehicles is contributing to target
+  variable so we should include \texttt{Number\_of\_Vehicles} for model
+  training
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Number of Accidents Attended by Police based on Number of Vehicles}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Vehicles}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accident Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number\PYZus{}of\PYZus{}Vehicles}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Did\PYZus{}Police\PYZus{}Officer\PYZus{}Attend\PYZus{}Scene\PYZus{}of\PYZus{}Accident}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{estimator} \PY{o}{=} \PY{k}{lambda} \PY{n}{z}\PY{p}{:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f923c353790>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{3) Number\_of\_Casualties vs
+Did\_Police\_Officer\_Attend\_Scene\_of\_Accident}\label{numberux5fofux5fcasualties-vs-didux5fpoliceux5fofficerux5fattendux5fsceneux5fofux5faccident}
+
+\paragraph{Observations:}\label{observations}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Number of casualities in most of the cases are 1 \#\#\#\# Inference:
+\item
+  Here we can infer that number of casualties is contributing to target
+  variable so we should include \texttt{Number\_of\_Casualties} for
+  model training
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Number of Accidents Attended by Police based on Number of Casualties}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number\PYZus{}of\PYZus{}Casualties}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accident Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number\PYZus{}of\PYZus{}Casualties}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Did\PYZus{}Police\PYZus{}Officer\PYZus{}Attend\PYZus{}Scene\PYZus{}of\PYZus{}Accident}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{estimator} \PY{o}{=} \PY{k}{lambda} \PY{n}{z}\PY{p}{:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f923c353bd0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{D) Analysis Light\_Conditions, Weather\_Conditions vs
+Did\_Police\_Officer\_Attend\_Scene\_of\_Accident}\label{d-analysis-lightux5fconditions-weatherux5fconditions-vs-didux5fpoliceux5fofficerux5fattendux5fsceneux5fofux5faccident}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Light\_Conditions vs Did\_Police\_Officer\_Attend\_Scene\_of\_Accident
+\item
+  Weather\_Conditions vs
+  Did\_Police\_Officer\_Attend\_Scene\_of\_Accident
+\end{enumerate}
+
+    \paragraph{1) Weather\_Conditions vs
+Did\_Police\_Officer\_Attend\_Scene\_of\_Accident}\label{weatherux5fconditions-vs-didux5fpoliceux5fofficerux5fattendux5fsceneux5fofux5faccident}
+
+\paragraph{Observations:}\label{observations}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Most of the accidents happened when weather category was 1(Fine no
+  high winds) followed by 2(Raining no high winds)
+\end{enumerate}
+
+\paragraph{Inference:}\label{inference}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Here we can infer that weather conditions is contributing to target
+  variable so we should include \texttt{Weather\_Conditions} for model
+  training
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Number of Accidents Attended by Police based on Weather Conditions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Weather Conditions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accident Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Weather\PYZus{}Conditions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Did\PYZus{}Police\PYZus{}Officer\PYZus{}Attend\PYZus{}Scene\PYZus{}of\PYZus{}Accident}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{estimator} \PY{o}{=} \PY{k}{lambda} \PY{n}{z}\PY{p}{:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f9237ea5dd0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{2) Light\_Conditions vs
+Did\_Police\_Officer\_Attend\_Scene\_of\_Accident}\label{lightux5fconditions-vs-didux5fpoliceux5fofficerux5fattendux5fsceneux5fofux5faccident}
+
+\paragraph{Observations:}\label{observations}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Most of the accidents happened when light category was 1(Daylight)
+  followed by 4(Darkness - lights lit)
+\end{enumerate}
+
+\paragraph{Inference:}\label{inference}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  We can clearly say that chance of police attending the accident scene
+  seems to change based on light condition thus
+  \texttt{Light\_Conditions} will be included in our model training
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Number of Accidents Attended by Police based on Light Conditions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Light Conditions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accident Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Light\PYZus{}Conditions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Did\PYZus{}Police\PYZus{}Officer\PYZus{}Attend\PYZus{}Scene\PYZus{}of\PYZus{}Accident}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{estimator} \PY{o}{=} \PY{k}{lambda} \PY{n}{z}\PY{p}{:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f9237cbb390>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{E) Ananlysis Police\_Force, Local\_Authority\_(District)
+vs
+Did\_Police\_Officer\_Attend\_Scene\_of\_Accident}\label{e-ananlysis-policeux5fforce-localux5fauthorityux5fdistrict-vs-didux5fpoliceux5fofficerux5fattendux5fsceneux5fofux5faccident}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Police\_Force vs Did\_Police\_Officer\_Attend\_Scene\_of\_Accident
+\end{enumerate}
+
+    \paragraph{1) Police\_Force vs
+Did\_Police\_Officer\_Attend\_Scene\_of\_Accident}\label{policeux5fforce-vs-didux5fpoliceux5fofficerux5fattendux5fsceneux5fofux5faccident}
+
+\paragraph{Observations:}\label{observations}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \texttt{Police\_Force} with category 1 attends most number of
+  accidents
+\end{enumerate}
+
+\paragraph{Inference:}\label{inference}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  This analysis doesnt give much information about the target variable.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Number of Accidents Attended by Police based on Police Force}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Police Force}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accident Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Police\PYZus{}Force}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Did\PYZus{}Police\PYZus{}Officer\PYZus{}Attend\PYZus{}Scene\PYZus{}of\PYZus{}Accident}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{estimator} \PY{o}{=} \PY{k}{lambda} \PY{n}{z}\PY{p}{:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f9237b6efd0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Analysis Urban\_or\_Rural\_Area vs
+Did\_Police\_Officer\_Attend\_Scene\_of\_Accident}\label{analysis-urbanux5forux5fruralux5farea-vs-didux5fpoliceux5fofficerux5fattendux5fsceneux5fofux5faccident}
+
+\paragraph{Observations:}\label{observations}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \texttt{Urban\_or\_Rural\_Area} with category 1 was attended in most
+  number of accidents
+\end{enumerate}
+
+\paragraph{Inference:}\label{inference}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Clearly we can observe different trends for urban and rural area.
+  Therefore will include \texttt{Urban\_or\_Rural\_Area} in our model
+  training
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Number of Accidents Attended by Police based on Local Authority}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Local Authority}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accident Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Urban\PYZus{}or\PYZus{}Rural\PYZus{}Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Did\PYZus{}Police\PYZus{}Officer\PYZus{}Attend\PYZus{}Scene\PYZus{}of\PYZus{}Accident}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{estimator} \PY{o}{=} \PY{k}{lambda} \PY{n}{z}\PY{p}{:} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{z}\PY{p}{)}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f998911cb90>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{6) Feature selection}\label{feature-selection}
+
+    \subsubsection{A) Features Selection through
+EDA}\label{a-features-selection-through-eda}
+
+\begin{verbatim}
+Have categorized features into group based on similarities which will be used in our 
+model training
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{severity\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accident\PYZus{}Severity}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number\PYZus{}of\PYZus{}Vehicles}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number\PYZus{}of\PYZus{}Casualties}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{time\PYZus{}attributes} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Day\PYZus{}of\PYZus{}Week}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hour\PYZus{}of\PYZus{}Day}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Month}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{isWeekend}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{weather\PYZus{}attributes} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Weather\PYZus{}Conditions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Light\PYZus{}Conditions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{road\PYZus{}attributes} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1st\PYZus{}Road\PYZus{}Number}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2nd\PYZus{}Road\PYZus{}Number}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1st\PYZus{}Road\PYZus{}Class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Road\PYZus{}Surface\PYZus{}Conditions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Road\PYZus{}Type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Speed\PYZus{}limit}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Junction\PYZus{}Detail}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Urban\PYZus{}or\PYZus{}Rural\PYZus{}Area}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{other\PYZus{}attributes} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Police\PYZus{}Force}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Special\PYZus{}Conditions\PYZus{}at\PYZus{}Site}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Carriageway\PYZus{}Hazards}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pedestrian\PYZus{}Crossing\PYZhy{}Physical\PYZus{}Facilities}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pedestrian\PYZus{}Crossing\PYZhy{}Human\PYZus{}Control}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        
+        \PY{n}{highly\PYZus{}variable\PYZus{}features} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2nd\PYZus{}Road\PYZus{}Number}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1st\PYZus{}Road\PYZus{}Number}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Local\PYZus{}Authority\PYZus{}(District)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Location\PYZus{}Northing\PYZus{}OSGR}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Location\PYZus{}Easting\PYZus{}OSGR}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{columns\PYZus{}final} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{severity\PYZus{}list} \PY{o}{+} \PY{n}{time\PYZus{}attributes} \PY{o}{+} \PY{n}{weather\PYZus{}attributes} \PY{o}{+} \PY{n}{road\PYZus{}attributes} \PY{o}{+} \PY{n}{other\PYZus{}attributes}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{highly\PYZus{}variable\PYZus{}features}\PY{p}{)}
+        
+        \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{columns\PYZus{}final}\PY{p}{]}
+        \PY{n}{Y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Did\PYZus{}Police\PYZus{}Officer\PYZus{}Attend\PYZus{}Scene\PYZus{}of\PYZus{}Accident}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mf}{0.0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mf}{1.0}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}One Hot Encoding}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}fit one hot encoder}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.preprocessing} \PY{k+kn}{import} \PY{n}{OneHotEncoder}
+         \PY{n}{oneHotEncX} \PY{o}{=} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{categories}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{auto}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{sparse}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,}\PY{n}{categorical\PYZus{}features}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{)}
+         \PY{n}{oneHotEncX}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} OneHotEncoder(categorical\_features=None, categories='auto',
+                dtype=<type 'numpy.float64'>, handle\_unknown='error', n\_values=None,
+                sparse=False)
+\end{Verbatim}
+            
+    \subsection{7 ) Models Selection}\label{models-selection}
+
+\begin{verbatim}
+Training and fine tuning multiple models in order to obtain best performing model for 
+our dataset
+\end{verbatim}
+
+\paragraph{Divide the data into training and test
+sets}\label{divide-the-data-into-training-and-test-sets}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn.model\PYZus{}selection} \PY{k+kn}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.30}\PY{p}{)}
+         \PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{X\PYZus{}testOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}testOHE} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{oneHotEncX}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.30}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Helper function}\label{helper-function}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{:}
+             \PY{n}{results} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+             \PY{n}{dict\PYZus{}cr} \PY{o}{=} \PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{,}\PY{n}{output\PYZus{}dict}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+             \PY{n}{acc} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+             \PY{n}{performance\PYZus{}matrix} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{accuracy\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{acc}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Recall Class0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{dict\PYZus{}cr}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{0.0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{recall}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Recall Class1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{dict\PYZus{}cr}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1.0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{recall}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{f1\PYZhy{}score Class0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{dict\PYZus{}cr}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{0.0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{f1\PYZhy{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{f1\PYZhy{}score Class1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{dict\PYZus{}cr}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1.0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{f1\PYZhy{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weighted avg recall}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{dict\PYZus{}cr}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weighted avg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{recall}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weighted avg f1\PYZhy{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{dict\PYZus{}cr}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{weighted avg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{f1\PYZhy{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                                   \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{confusion\PYZus{}matrix}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{results} \PY{p}{\PYZcb{}}
+              
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{=================Evaluating the Algorithm================}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{=========================================================}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{=================Confusion Matrix========================}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{n}{results}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{=================Classification Report===================}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+             \PY{n}{acc\PYZus{}sgd} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{=================Accuracy }\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{==============================}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{acc} \PY{o}{*} \PY{l+m+mf}{100.0}\PY{p}{)}\PY{p}{)}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{=========================================================}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{return} \PY{n}{performance\PYZus{}matrix}
+             
+\end{Verbatim}
+
+
+    \subsubsection{A) Decision Trees}\label{a-decision-trees}
+
+\paragraph{Training and Making
+Predictions}\label{training-and-making-predictions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{classifier} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{criterion}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{entropy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}  \PY{n}{splitter}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{random}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{min\PYZus{}samples\PYZus{}split} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{classifier}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}dt} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[ 2562  5549]
+ [ 6711 29075]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.28      0.32      0.29      8111
+         1.0       0.84      0.81      0.83     35786
+
+   micro avg       0.72      0.72      0.72     43897
+   macro avg       0.56      0.56      0.56     43897
+weighted avg       0.74      0.72      0.73     43897
+
+=================Accuracy \%==============================
+Accuracy: 72.07\%
+=========================================================
+
+    \end{Verbatim}
+
+    \subsubsection{B) Random Forest}\label{b-random-forest}
+
+\paragraph{Training and Making
+Predictions}\label{training-and-making-predictions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Instantiate model with 100 decision trees}
+         \PY{n}{rf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{rf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{rf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}rf} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[  996  7115]
+ [ 1250 34536]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.44      0.12      0.19      8111
+         1.0       0.83      0.97      0.89     35786
+
+   micro avg       0.81      0.81      0.81     43897
+   macro avg       0.64      0.54      0.54     43897
+weighted avg       0.76      0.81      0.76     43897
+
+=================Accuracy \%==============================
+Accuracy: 80.94\%
+=========================================================
+
+    \end{Verbatim}
+
+    \subsubsection{C) GaussianNB}\label{c-gaussiannb}
+
+\paragraph{Training and Making
+Predictions}\label{training-and-making-predictions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{classifier} \PY{o}{=} \PY{n}{GaussianNB}\PY{p}{(}\PY{p}{)}
+         \PY{n}{classifier}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}gnb} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[ 5051  3060]
+ [13110 22676]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.28      0.62      0.38      8111
+         1.0       0.88      0.63      0.74     35786
+
+   micro avg       0.63      0.63      0.63     43897
+   macro avg       0.58      0.63      0.56     43897
+weighted avg       0.77      0.63      0.67     43897
+
+=================Accuracy \%==============================
+Accuracy: 63.16\%
+=========================================================
+
+    \end{Verbatim}
+
+    \subsubsection{D) Logistic Regression}\label{d-logistic-regression}
+
+\paragraph{Training and Making
+Predictions}\label{training-and-making-predictions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{logreg} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{logreg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{logreg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}lr} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/shared/3QI\_Release/dependencies/python\_virtual\_env\_1/lib64/python2.7/site-packages/sklearn/linear\_model/logistic.py:433: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[  246  7865]
+ [  115 35671]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.68      0.03      0.06      8111
+         1.0       0.82      1.00      0.90     35786
+
+   micro avg       0.82      0.82      0.82     43897
+   macro avg       0.75      0.51      0.48     43897
+weighted avg       0.79      0.82      0.74     43897
+
+=================Accuracy \%==============================
+Accuracy: 81.82\%
+=========================================================
+
+    \end{Verbatim}
+
+    \subsubsection{E) Linear SVC}\label{e-linear-svc}
+
+\paragraph{Training and Making
+Predictions}\label{training-and-making-predictions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{linear\PYZus{}svc} \PY{o}{=} \PY{n}{LinearSVC}\PY{p}{(}\PY{p}{)}
+         \PY{n}{linear\PYZus{}svc}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{linear\PYZus{}svc}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}svc} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/shared/3QI\_Release/dependencies/python\_virtual\_env\_1/lib64/python2.7/site-packages/sklearn/svm/base.py:931: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  "the number of iterations.", ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[    2  8109]
+ [    0 35786]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       1.00      0.00      0.00      8111
+         1.0       0.82      1.00      0.90     35786
+
+   micro avg       0.82      0.82      0.82     43897
+   macro avg       0.91      0.50      0.45     43897
+weighted avg       0.85      0.82      0.73     43897
+
+=================Accuracy \%==============================
+Accuracy: 81.53\%
+=========================================================
+
+    \end{Verbatim}
+
+    \subsubsection{F) XGBoost}\label{f-xgboost}
+
+\paragraph{Training and Making
+Predictions}\label{training-and-making-predictions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{classifier} \PY{o}{=} \PY{n}{XGBClassifier}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{,}\PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{,}
+                                    \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqrt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{subsample}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roc\PYZus{}auc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{iid}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{classifier}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{classifier}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}xgb} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[  440  7671]
+ [  198 35588]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.69      0.05      0.10      8111
+         1.0       0.82      0.99      0.90     35786
+
+   micro avg       0.82      0.82      0.82     43897
+   macro avg       0.76      0.52      0.50     43897
+weighted avg       0.80      0.82      0.75     43897
+
+=================Accuracy \%==============================
+Accuracy: 82.07\%
+=========================================================
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k+kn}{from} \PY{n+nn}{xgboost} \PY{k+kn}{import} \PY{n}{plot\PYZus{}importance}
+         \PY{n}{plot\PYZus{}importance}\PY{p}{(}\PY{n}{classifier}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f9987c988d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{G) Stochastic Gradient
+Descent}\label{g-stochastic-gradient-descent}
+
+\begin{verbatim}
+In the below given experiments we will try to find the optimal hyper parameter values for recall.
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{loss\PYZus{}functions} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hinge}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{log}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{modified\PYZus{}huber}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{squared\PYZus{}hinge}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{perceptron}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{penalty\PYZus{}functions} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{none}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{elasticnet}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{optimal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{constant}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{invscaling}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{adaptive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    From Experiment 1 to 5 we are trying to find the best hyper parameter
+values for \texttt{loss\_functions}.
+
+    \paragraph{Experiment G.1: with default parameters
+::}\label{experiment-g.1-with-default-parameters}
+
+\begin{verbatim}
+loss="hinge"
+\end{verbatim}
+
+\subparagraph{Observations:}\label{observations}
+
+\begin{verbatim}
+The recall value `class 0` is very low
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{sgd} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hinge}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} 
+                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{optimal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sgd}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}testOHE}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}sgd1} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[  132  7979]
+ [  578 35208]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.19      0.02      0.03      8111
+         1.0       0.82      0.98      0.89     35786
+
+   micro avg       0.81      0.81      0.81     43897
+   macro avg       0.50      0.50      0.46     43897
+weighted avg       0.70      0.81      0.73     43897
+
+=================Accuracy \%==============================
+Accuracy: 80.51\%
+=========================================================
+
+    \end{Verbatim}
+
+    \paragraph{Experiment G.2: With parameters
+::}\label{experiment-g.2-with-parameters}
+
+\begin{verbatim}
+loss="log"
+\end{verbatim}
+
+\subparagraph{Observations:}\label{observations}
+
+\begin{verbatim}
+The recall value `class 0` is still low
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{sgd} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{log}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} 
+                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{optimal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sgd}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}testOHE}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}sgd2} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[  146  7965]
+ [  647 35139]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.18      0.02      0.03      8111
+         1.0       0.82      0.98      0.89     35786
+
+   micro avg       0.80      0.80      0.80     43897
+   macro avg       0.50      0.50      0.46     43897
+weighted avg       0.70      0.80      0.73     43897
+
+=================Accuracy \%==============================
+Accuracy: 80.38\%
+=========================================================
+
+    \end{Verbatim}
+
+    \paragraph{Experiment G.3: With parameters
+::}\label{experiment-g.3-with-parameters}
+
+\begin{verbatim}
+loss="modified_huber"
+\end{verbatim}
+
+\subparagraph{Observations:}\label{observations}
+
+\begin{verbatim}
+The recall value `class 0` is still low
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{sgd} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{modified\PYZus{}huber}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} 
+                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{optimal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sgd}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}testOHE}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}sgd3} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[  109  8002]
+ [  465 35321]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.19      0.01      0.03      8111
+         1.0       0.82      0.99      0.89     35786
+
+   micro avg       0.81      0.81      0.81     43897
+   macro avg       0.50      0.50      0.46     43897
+weighted avg       0.70      0.81      0.73     43897
+
+=================Accuracy \%==============================
+Accuracy: 80.71\%
+=========================================================
+
+    \end{Verbatim}
+
+    \paragraph{Experiment G.4: With parameters
+::}\label{experiment-g.4-with-parameters}
+
+\begin{verbatim}
+loss="squared_hinge"
+\end{verbatim}
+
+\subparagraph{Observations:}\label{observations}
+
+\begin{verbatim}
+We observe that the recall value of class0 has increased but at the cost of decrease in recall value of class1
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{sgd} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{squared\PYZus{}hinge}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} 
+                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{optimal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sgd}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}testOHE}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}sgd4} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/shared/3QI\_Release/dependencies/python\_virtual\_env\_1/lib64/python2.7/site-packages/sklearn/linear\_model/stochastic\_gradient.py:603: ConvergenceWarning: Maximum number of iteration reached before convergence. Consider increasing max\_iter to improve the fit.
+  ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[ 3373  4738]
+ [14826 20960]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.19      0.42      0.26      8111
+         1.0       0.82      0.59      0.68     35786
+
+   micro avg       0.55      0.55      0.55     43897
+   macro avg       0.50      0.50      0.47     43897
+weighted avg       0.70      0.55      0.60     43897
+
+=================Accuracy \%==============================
+Accuracy: 55.43\%
+=========================================================
+
+    \end{Verbatim}
+
+    \paragraph{Experiment G.5: With parameters
+::}\label{experiment-g.5-with-parameters}
+
+\begin{verbatim}
+loss="perceptron"
+\end{verbatim}
+
+\subparagraph{Observations:}\label{observations}
+
+\begin{verbatim}
+The recall value `class 0` is very low
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{sgd} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{perceptron}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} 
+                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{optimal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sgd}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}testOHE}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}sgd5} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[  486  7625]
+ [ 2031 33755]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.19      0.06      0.09      8111
+         1.0       0.82      0.94      0.87     35786
+
+   micro avg       0.78      0.78      0.78     43897
+   macro avg       0.50      0.50      0.48     43897
+weighted avg       0.70      0.78      0.73     43897
+
+=================Accuracy \%==============================
+Accuracy: 78.00\%
+=========================================================
+
+    \end{Verbatim}
+
+    \subparagraph{We found that with loss="squared\_hinge" the recall value
+for class0 and class1 are
+comparable.}\label{we-found-that-with-losssquaredux5fhinge-the-recall-value-for-class0-and-class1-are-comparable.}
+
+\begin{verbatim}
+Now we will take loss = "squared_hinge"  and fine tune other paramenters
+\end{verbatim}
+
+    \paragraph{Experiment G.6: With parameters
+::}\label{experiment-g.6-with-parameters}
+
+\begin{verbatim}
+loss="squared_hinge"
+penalty="none"
+\end{verbatim}
+
+\subparagraph{Observations:}\label{observations}
+
+\begin{verbatim}
+The recall value `class 0` is .36
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{sgd} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{squared\PYZus{}hinge}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{none}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} 
+                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{optimal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sgd}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}testOHE}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}sgd6} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[ 2933  5178]
+ [13071 22715]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.18      0.36      0.24      8111
+         1.0       0.81      0.63      0.71     35786
+
+   micro avg       0.58      0.58      0.58     43897
+   macro avg       0.50      0.50      0.48     43897
+weighted avg       0.70      0.58      0.63     43897
+
+=================Accuracy \%==============================
+Accuracy: 58.43\%
+=========================================================
+
+    \end{Verbatim}
+
+    \paragraph{Experiment G.7: With parameters
+::}\label{experiment-g.7-with-parameters}
+
+\begin{verbatim}
+loss="squared_hinge"
+penalty="l1"
+\end{verbatim}
+
+\subparagraph{Observations:}\label{observations}
+
+\begin{verbatim}
+The recall value `class 0` is .31
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{sgd} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{squared\PYZus{}hinge}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} 
+                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{optimal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sgd}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}testOHE}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}sgd7} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[ 2537  5574]
+ [11203 24583]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.18      0.31      0.23      8111
+         1.0       0.82      0.69      0.75     35786
+
+   micro avg       0.62      0.62      0.62     43897
+   macro avg       0.50      0.50      0.49     43897
+weighted avg       0.70      0.62      0.65     43897
+
+=================Accuracy \%==============================
+Accuracy: 61.78\%
+=========================================================
+
+    \end{Verbatim}
+
+    \paragraph{Experiment G.8: With parameters
+::}\label{experiment-g.8-with-parameters}
+
+\begin{verbatim}
+loss="squared_hinge"
+penalty="elasticnet"
+\end{verbatim}
+
+\subparagraph{Observations:}\label{observations}
+
+\begin{verbatim}
+The recall value `class 0` and class1 are comparable
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{sgd} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{squared\PYZus{}hinge}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{elasticnet}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} 
+                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{optimal}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sgd}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}testOHE}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}sgd8} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[ 3445  4666]
+ [15300 20486]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.18      0.42      0.26      8111
+         1.0       0.81      0.57      0.67     35786
+
+   micro avg       0.55      0.55      0.55     43897
+   macro avg       0.50      0.50      0.46     43897
+weighted avg       0.70      0.55      0.60     43897
+
+=================Accuracy \%==============================
+Accuracy: 54.52\%
+=========================================================
+
+    \end{Verbatim}
+
+    \subparagraph{We observed that with penalty="l2" and
+penalty="elasticnet" are giving best recall
+values.}\label{we-observed-that-with-penaltyl2-and-penaltyelasticnet-are-giving-best-recall-values.}
+
+\begin{verbatim}
+Taking penalty="l2", we will try to fine tune learning_rate (Experiet 9 to 11)
+And Taking penalty="elasticnet", we will try to fine tune learning_rate (Experiet 12 to 14)
+\end{verbatim}
+
+    \paragraph{Experiment G.9: With parameters
+::}\label{experiment-g.9-with-parameters}
+
+\begin{verbatim}
+loss="squared_hinge"
+penalty="l2"
+learning_rate="constant"
+\end{verbatim}
+
+\subparagraph{Observations:}\label{observations}
+
+\begin{verbatim}
+The recall value `class 0` and class1 are comparable
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{sgd} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{squared\PYZus{}hinge}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} 
+                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{constant}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sgd}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}testOHE}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}sgd9} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[ 4269  3842]
+ [18694 17092]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.19      0.53      0.27      8111
+         1.0       0.82      0.48      0.60     35786
+
+   micro avg       0.49      0.49      0.49     43897
+   macro avg       0.50      0.50      0.44     43897
+weighted avg       0.70      0.49      0.54     43897
+
+=================Accuracy \%==============================
+Accuracy: 48.66\%
+=========================================================
+
+    \end{Verbatim}
+
+    \paragraph{Experiment G.10: With parameters
+::}\label{experiment-g.10-with-parameters}
+
+\begin{verbatim}
+loss="squared_hinge"
+penalty="l2"
+learning_rate="invscaling"
+\end{verbatim}
+
+\subparagraph{Observations:}\label{observations}
+
+\begin{verbatim}
+The recall value `class 0` is .3
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{sgd} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{squared\PYZus{}hinge}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} 
+                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{invscaling}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sgd}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}testOHE}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}sgd10} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[ 2405  5706]
+ [10640 25146]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.18      0.30      0.23      8111
+         1.0       0.82      0.70      0.75     35786
+
+   micro avg       0.63      0.63      0.63     43897
+   macro avg       0.50      0.50      0.49     43897
+weighted avg       0.70      0.63      0.66     43897
+
+=================Accuracy \%==============================
+Accuracy: 62.76\%
+=========================================================
+
+    \end{Verbatim}
+
+    \paragraph{Experiment G.11: With parameters
+::}\label{experiment-g.11-with-parameters}
+
+\begin{verbatim}
+loss="squared_hinge"
+penalty="l2"
+learning_rate="adaptive"
+\end{verbatim}
+
+\subparagraph{Observations:}\label{observations}
+
+\begin{verbatim}
+The recall value `class 0` is .01
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{sgd} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{squared\PYZus{}hinge}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{l2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} 
+                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{adaptive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sgd}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}testOHE}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}sgd11} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[  107  8004]
+ [  455 35331]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.19      0.01      0.02      8111
+         1.0       0.82      0.99      0.89     35786
+
+   micro avg       0.81      0.81      0.81     43897
+   macro avg       0.50      0.50      0.46     43897
+weighted avg       0.70      0.81      0.73     43897
+
+=================Accuracy \%==============================
+Accuracy: 80.73\%
+=========================================================
+
+    \end{Verbatim}
+
+    \paragraph{Experiment G.12: With parameters
+::}\label{experiment-g.12-with-parameters}
+
+\begin{verbatim}
+loss="squared_hinge"
+penalty="elasticnet"
+learning_rate="constant"
+\end{verbatim}
+
+\subparagraph{Observations:}\label{observations}
+
+\begin{verbatim}
+The recall value `class 0` increased substantially to .83 and for class1 it decreased to .17
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{sgd} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{squared\PYZus{}hinge}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{elasticnet}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} 
+                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{constant}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sgd}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}testOHE}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}sgd12}\PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[ 2110  6001]
+ [ 9049 26737]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.19      0.26      0.22      8111
+         1.0       0.82      0.75      0.78     35786
+
+   micro avg       0.66      0.66      0.66     43897
+   macro avg       0.50      0.50      0.50     43897
+weighted avg       0.70      0.66      0.68     43897
+
+=================Accuracy \%==============================
+Accuracy: 65.72\%
+=========================================================
+
+    \end{Verbatim}
+
+    \paragraph{Experiment G.13: With parameters
+::}\label{experiment-g.13-with-parameters}
+
+\begin{verbatim}
+loss="perceptron"
+penalty="elasticnet"
+learning_rate="invscaling"
+\end{verbatim}
+
+\subparagraph{Observations:}\label{observations}
+
+\begin{verbatim}
+The recall value `class 0` is very low i.e .01
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{sgd} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{squared\PYZus{}hinge}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{elasticnet}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} 
+                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{invscaling}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sgd}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}testOHE}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}sgd13} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[  111  8000]
+ [  461 35325]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.19      0.01      0.03      8111
+         1.0       0.82      0.99      0.89     35786
+
+   micro avg       0.81      0.81      0.81     43897
+   macro avg       0.50      0.50      0.46     43897
+weighted avg       0.70      0.81      0.73     43897
+
+=================Accuracy \%==============================
+Accuracy: 80.73\%
+=========================================================
+
+    \end{Verbatim}
+
+    \paragraph{Experiment G.14: With parameters
+::}\label{experiment-g.14-with-parameters}
+
+\begin{verbatim}
+loss="perceptron"
+penalty="elasticnet"
+learning_rate="adaptive"
+\end{verbatim}
+
+\subparagraph{Observations:}\label{observations}
+
+\begin{verbatim}
+The recall value `class 0` is .38 and for class1 is .64 and seems to be the best model
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{sgd} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{squared\PYZus{}hinge}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{elasticnet}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} 
+                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{adaptive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} 
+                             \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+         \PY{n}{sgd}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}trainOHE}\PY{p}{,} \PY{n}{y\PYZus{}trainOHE}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sgd}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}testOHE}\PY{p}{)}
+         \PY{n}{performance\PYZus{}matrix\PYZus{}sgd14} \PY{o}{=} \PY{n}{print\PYZus{}results}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+=================Evaluating the Algorithm================
+=========================================================
+=================Confusion Matrix========================
+[[  282  7829]
+ [ 1210 34576]]
+=================Classification Report===================
+              precision    recall  f1-score   support
+
+         0.0       0.19      0.03      0.06      8111
+         1.0       0.82      0.97      0.88     35786
+
+   micro avg       0.79      0.79      0.79     43897
+   macro avg       0.50      0.50      0.47     43897
+weighted avg       0.70      0.79      0.73     43897
+
+=================Accuracy \%==============================
+Accuracy: 79.41\%
+=========================================================
+
+    \end{Verbatim}
+
+    Thus with paraeters set to (loss="perceptron", penalty="elasticnet",
+learning\_rate="adaptive") with SGDClassifier Model gives the best
+results
+
+    \subsection{7) Conclusion}\label{conclusion}
+
+After applying the following classification models:  A) Decision Trees
+ B) Random Forest  C) GaussianNB  D) Logistic Regression  E) Linear SVC
+ F) XGBoost  G) Stochastic Gradient Descent
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Machine Learning algorithm scores}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{sgd\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Stochastic Gradient Descent}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{c}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{)}\PY{p}{]}
+         \PY{n}{list1} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Decision Trees}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GaussianNB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XGBoost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Forest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Logistic Regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linear SVC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{sgd\PYZus{}list}
+         \PY{n}{variable\PYZus{}list1} \PY{o}{=} \PY{p}{[}\PY{n}{performance\PYZus{}matrix\PYZus{}dt}\PY{p}{,} \PY{n}{performance\PYZus{}matrix\PYZus{}gnb}\PY{p}{,} \PY{n}{performance\PYZus{}matrix\PYZus{}xgb}\PY{p}{,} \PY{n}{performance\PYZus{}matrix\PYZus{}rf}\PY{p}{,}
+                        \PY{n}{performance\PYZus{}matrix\PYZus{}lr}\PY{p}{,} \PY{n}{performance\PYZus{}matrix\PYZus{}svc}\PY{p}{]}
+         \PY{n}{sgd\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{n}{performance\PYZus{}matrix\PYZus{}sgd1}\PY{p}{,}\PY{n}{performance\PYZus{}matrix\PYZus{}sgd2}\PY{p}{,}\PY{n}{performance\PYZus{}matrix\PYZus{}sgd3}\PY{p}{,}\PY{n}{performance\PYZus{}matrix\PYZus{}sgd4}\PY{p}{,}
+                     \PY{n}{performance\PYZus{}matrix\PYZus{}sgd5}\PY{p}{,}\PY{n}{performance\PYZus{}matrix\PYZus{}sgd6}\PY{p}{,}\PY{n}{performance\PYZus{}matrix\PYZus{}sgd7}\PY{p}{,}\PY{n}{performance\PYZus{}matrix\PYZus{}sgd8}\PY{p}{,}
+                     \PY{n}{performance\PYZus{}matrix\PYZus{}sgd9}\PY{p}{,}\PY{n}{performance\PYZus{}matrix\PYZus{}sgd10}\PY{p}{,}\PY{n}{performance\PYZus{}matrix\PYZus{}sgd11}\PY{p}{,}\PY{n}{performance\PYZus{}matrix\PYZus{}sgd12}\PY{p}{,}
+                     \PY{n}{performance\PYZus{}matrix\PYZus{}sgd13}\PY{p}{,}\PY{n}{performance\PYZus{}matrix\PYZus{}sgd14}\PY{p}{]}
+         \PY{n}{variable\PYZus{}final} \PY{o}{=} \PY{n}{variable\PYZus{}list1} \PY{o}{+}  \PY{n}{sgd\PYZus{}list}
+         
+         \PY{n}{df\PYZus{}results} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{variable\PYZus{}final}\PY{p}{)}
+         \PY{n}{df\PYZus{}results}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{list1}
+         \PY{n}{df\PYZus{}results}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{recall\PYZus{}avg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{df\PYZus{}results}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Recall Class0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{+} \PY{n}{df\PYZus{}results}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Recall Class1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}
+         \PY{n}{df\PYZus{}results}
+         \PY{n}{df\PYZus{}results}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{recall\PYZus{}avg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Machine Learning algorithm scores
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:}                                Recall Class0  Recall Class1  accuracy\_score  \textbackslash{}
+         GaussianNB                          0.622735       0.633656        0.631638   
+          Decision Trees                     0.315867       0.812469        0.720710   
+         Random Forest                       0.122796       0.965070        0.809440   
+         XGBoost                             0.054247       0.994467        0.820739   
+         Logistic Regression                 0.030329       0.996786        0.818211   
+         Stochastic Gradient Descent12       0.260141       0.747136        0.657152   
+         Stochastic Gradient Descent9        0.526322       0.477617        0.486616   
+         Stochastic Gradient Descent5        0.059919       0.943246        0.780031   
+         Stochastic Gradient Descent4        0.415855       0.585704        0.554320   
+         Stochastic Gradient Descent14       0.034768       0.966188        0.794086   
+         Stochastic Gradient Descent13       0.013685       0.987118        0.807253   
+         Stochastic Gradient Descent11       0.013192       0.987286        0.807299   
+         Stochastic Gradient Descent3        0.013439       0.987006        0.807117   
+         Linear SVC                          0.000247       1.000000        0.815272   
+         Stochastic Gradient Descent1        0.016274       0.983848        0.805066   
+         Stochastic Gradient Descent2        0.018000       0.981920        0.803813   
+         Stochastic Gradient Descent7        0.312785       0.686945        0.617810   
+         Stochastic Gradient Descent10       0.296511       0.702677        0.627628   
+         Stochastic Gradient Descent8        0.424732       0.572459        0.545163   
+         Stochastic Gradient Descent6        0.361608       0.634745        0.584277   
+         
+                                                      confusion\_matrix  \textbackslash{}
+         GaussianNB                     [[5051, 3060], [13110, 22676]]   
+          Decision Trees                 [[2562, 5549], [6711, 29075]]   
+         Random Forest                    [[996, 7115], [1250, 34536]]   
+         XGBoost                           [[440, 7671], [198, 35588]]   
+         Logistic Regression               [[246, 7865], [115, 35671]]   
+         Stochastic Gradient Descent12   [[2110, 6001], [9049, 26737]]   
+         Stochastic Gradient Descent9   [[4269, 3842], [18694, 17092]]   
+         Stochastic Gradient Descent5     [[486, 7625], [2031, 33755]]   
+         Stochastic Gradient Descent4   [[3373, 4738], [14826, 20960]]   
+         Stochastic Gradient Descent14    [[282, 7829], [1210, 34576]]   
+         Stochastic Gradient Descent13     [[111, 8000], [461, 35325]]   
+         Stochastic Gradient Descent11     [[107, 8004], [455, 35331]]   
+         Stochastic Gradient Descent3      [[109, 8002], [465, 35321]]   
+         Linear SVC                            [[2, 8109], [0, 35786]]   
+         Stochastic Gradient Descent1      [[132, 7979], [578, 35208]]   
+         Stochastic Gradient Descent2      [[146, 7965], [647, 35139]]   
+         Stochastic Gradient Descent7   [[2537, 5574], [11203, 24583]]   
+         Stochastic Gradient Descent10  [[2405, 5706], [10640, 25146]]   
+         Stochastic Gradient Descent8   [[3445, 4666], [15300, 20486]]   
+         Stochastic Gradient Descent6   [[2933, 5178], [13071, 22715]]   
+         
+                                        f1-score Class0  f1-score Class1  \textbackslash{}
+         GaussianNB                            0.384516         0.737167   
+          Decision Trees                       0.294754         0.825877   
+         Random Forest                         0.192334         0.891977   
+         XGBoost                               0.100583         0.900449   
+         Logistic Regression                   0.058074         0.899397   
+         Stochastic Gradient Descent12         0.218993         0.780369   
+         Stochastic Gradient Descent9          0.274763         0.602680   
+         Stochastic Gradient Descent5          0.091457         0.874867   
+         Stochastic Gradient Descent4          0.256404         0.681803   
+         Stochastic Gradient Descent14         0.058732         0.884398   
+         Stochastic Gradient Descent13         0.025567         0.893049   
+         Stochastic Gradient Descent11         0.024674         0.893088   
+         Stochastic Gradient Descent3          0.025101         0.892970   
+         Linear SVC                            0.000493         0.898232   
+         Stochastic Gradient Descent1          0.029929         0.891647   
+         Stochastic Gradient Descent2          0.032794         0.890835   
+         Stochastic Gradient Descent7          0.232209         0.745583   
+         Stochastic Gradient Descent10         0.227359         0.754705   
+         Stochastic Gradient Descent8          0.256553         0.672356   
+         Stochastic Gradient Descent6          0.243251         0.713422   
+         
+                                        weighted avg f1-score  weighted avg recall  \textbackslash{}
+         GaussianNB                                  0.672007             0.631638   
+          Decision Trees                             0.727740             0.720710   
+         Random Forest                               0.762701             0.809440   
+         XGBoost                                     0.752655             0.820739   
+         Logistic Regression                         0.743943             0.818211   
+         Stochastic Gradient Descent12               0.676642             0.657152   
+         Stochastic Gradient Descent9                0.542090             0.486616   
+         Stochastic Gradient Descent5                0.730114             0.780031   
+         Stochastic Gradient Descent4                0.603201             0.554320   
+         Stochastic Gradient Descent14               0.731837             0.794086   
+         Stochastic Gradient Descent13               0.732761             0.807253   
+         Stochastic Gradient Descent11               0.732628             0.807299   
+         Stochastic Gradient Descent3                0.732611             0.807117   
+         Linear SVC                                  0.732353             0.815272   
+         Stochastic Gradient Descent1                0.732424             0.805066   
+         Stochastic Gradient Descent2                0.732292             0.803813   
+         Stochastic Gradient Descent7                0.650725             0.617810   
+         Stochastic Gradient Descent10               0.657265             0.627628   
+         Stochastic Gradient Descent8                0.595526             0.545163   
+         Stochastic Gradient Descent6                0.626547             0.584277   
+         
+                                        recall\_avg  
+         GaussianNB                       0.628195  
+          Decision Trees                  0.564168  
+         Random Forest                    0.543933  
+         XGBoost                          0.524357  
+         Logistic Regression              0.513558  
+         Stochastic Gradient Descent12    0.503638  
+         Stochastic Gradient Descent9     0.501970  
+         Stochastic Gradient Descent5     0.501582  
+         Stochastic Gradient Descent4     0.500779  
+         Stochastic Gradient Descent14    0.500478  
+         Stochastic Gradient Descent13    0.500401  
+         Stochastic Gradient Descent11    0.500239  
+         Stochastic Gradient Descent3     0.500222  
+         Linear SVC                       0.500123  
+         Stochastic Gradient Descent1     0.500061  
+         Stochastic Gradient Descent2     0.499960  
+         Stochastic Gradient Descent7     0.499865  
+         Stochastic Gradient Descent10    0.499594  
+         Stochastic Gradient Descent8     0.498595  
+         Stochastic Gradient Descent6     0.498177  
+\end{Verbatim}
+            
+    From the original dataset with 146322 number of records, we have created
+a 70:30 split for training(102425) and testing(43897) respectively.
+
+The target variable has records distributed into 2 classes, class1(
+119607) and class2(26715).
+
+Wanted to optimize the recall value for both the classes to find the
+best model.Apart from applying different models have done hyper
+parameter tuning for Stochastic Gradient Descent.From previous
+experience felt SGD will map to this use case and evaluation criteria
+better.
+
+After runnimg multiple experiments by tuning Hyper parmeters Stochastic
+Gradient Descent experiments where giving good results but basic
+\texttt{GaussianNB} is working better based on average value of recall
+both classes followd by \texttt{Decision Tree}
+
+Given more time would have had a word with business on which metric is
+most important to them and experimented (hyper parameter tuning) on
+other models \texttt{GaussianNB} and \texttt{XGBoost} etc...
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
